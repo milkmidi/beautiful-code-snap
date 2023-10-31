@@ -1,4 +1,4 @@
-import { languages, themes } from "@/options";
+import { languages } from "@/options";
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { cn } from "@/lib/utils";
+
 import useStore from "@/store/store";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
@@ -14,7 +14,7 @@ export default function LanguageSelect() {
   const language = useStore((state) => state.language);
   const autoDetectLanguage = useStore((state) => state.autoDetectLanguage);
 
-  const handleChange = (language) => {
+  const handleChange = (language: string) => {
     if (language === "auto-detect") {
       useStore.setState({ autoDetectLanguage: true, language: "plaintext" });
     } else {
