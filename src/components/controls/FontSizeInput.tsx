@@ -12,7 +12,8 @@ export default function FontSizeInput() {
       <Input
         type="number"
         className="!dark w-16 bg-transparent"
-        min={6}
+        min={14}
+        max={20}
         value={fontSize}
         onChange={(e) =>
           useStore.setState({ fontSize: Number(e.target.value) })
