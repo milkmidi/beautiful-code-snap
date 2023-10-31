@@ -12,6 +12,7 @@ import BackgroundSwitch from "./components/controls/BackgroundSwitch";
 import DarkModeSwitch from "./components/controls/DarkModeSwitch";
 import useStore from "./store/store";
 import { Separator } from "./components/ui/separator";
+import ExportOptions from "./components/controls/ExportOptions";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -60,8 +61,14 @@ function App() {
 
         <CardFooter className="flex justify-center items-center gap-6 pb-0 flex-wrap">
           <PaddingSlider />
-          <BackgroundSwitch />
-          <DarkModeSwitch />
+          <div className="flex gap-6">
+            <BackgroundSwitch />
+            <DarkModeSwitch />
+          </div>
+          <div className="w-px bg-neutral-800" />
+          <div className="place-self-center">
+            <ExportOptions targetRef={editorRef} />
+          </div>
         </CardFooter>
       </Card>
 
