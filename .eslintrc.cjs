@@ -15,4 +15,5 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  "ecmaVersion": 2020
 }
