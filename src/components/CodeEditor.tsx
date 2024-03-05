@@ -39,13 +39,16 @@ export default function CodeEditor() {
           <div className="rounded-full h-3 w-3 bg-green-500" />
         </div>
         <div className="col-span-4 flex justify-center">
+          <label htmlFor="codeTitle" className="sr-only">Code Title</label>
           <input
+            id="codeTitle"
             type="text"
             value={store.title}
             onChange={(e) => useStore.setState({ title: e.target.value })}
             spellCheck={false}
             onClick={(e) => (e.target as HTMLInputElement).select()}
             className="bg-transparent text-center text-gray-400 text-sm font-medium focus:outline-none"
+            aria-label="Code Title"
           />
         </div>
       </header>
