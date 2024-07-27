@@ -14,13 +14,13 @@ import useStore from "./store/store";
 import { Separator } from "./components/ui/separator";
 import ExportOptions from "./components/controls/ExportOptions";
 
-function App() {
+const App = () => {
   const theme = useStore((state) => state.theme);
   const padding = useStore((state) => state.padding);
   const fontStyle = useStore((state) => state.fontStyle);
   const showBackground = useStore((state) => state.showBackground);
 
-  const editorRef = useRef(null);
+  const editorRef = useRef<HTMLDivElement>(null);
 
   return (
     <main className="container dark min-h-screen flex flex-col items-center bg-neutral-950 text-white p-10">
@@ -67,7 +67,7 @@ function App() {
           </div>
           <div className="w-px bg-neutral-800" />
           <div className="place-self-center">
-            <ExportOptions targetRef={editorRef} />
+            <ExportOptions targetElement={editorRef.current} />
           </div>
         </CardFooter>
       </Card>

@@ -24,23 +24,26 @@ type SaveImageType = {
 };
 
 type ExportOptionsProps = {
-  targetRef: React.RefObject<HTMLDivElement>;
+  targetElement?: HTMLElement | null;
 };
 
-export default function ExportOptions({ targetRef }: ExportOptionsProps) {
+type ToImageProcessor = typeof toPng | typeof toSvg | typeof toBlob;
+export default function ExportOptions({ targetElement }: ExportOptionsProps) {
   const title = useStore((state) => state.title);
 
-  const processImage = async (processor: any) => {
-    if (targetRef.current) {
-      return processor(targetRef.current, { pixelRatio: 2 });
+  const processImage = async (processor: ToImageProcessor) => {
+    if (targetElement) {
+      return processor(targetElement, { pixelRatio: 2 });
     }
-    throw new Error("Target ref is null.");
+    throw new Error("Target is null.");
   };
 
   const copyImage = async () => {
     try {
       const imgBlob = await processImage(toBlob);
-      navigator.clipboard.write([new ClipboardItem({ "image/png": imgBlob })]);
+      if (imgBlob) {
+        navigator.clipboard.write([new ClipboardItem({ "image/png": imgBlob })]);
+      }
       toast.success("Image copied to clipboard!");
     } catch (error) {
       toast.error("Something went wrong!");
@@ -70,11 +73,13 @@ export default function ExportOptions({ targetRef }: ExportOptionsProps) {
     try {
       const imgProcessor = format === "PNG" ? toPng : toSvg;
       const imgURL = await processImage(imgProcessor);
-      const a = document.createElement("a");
-      a.href = imgURL;
-      a.download = `${name}.${format.toLowerCase()}`;
-      a.click();
-      toast.success(`Image saved as ${format}`);
+      if (imgURL) {
+        const a = document.createElement("a");
+        a.href = imgURL as string;
+        a.download = `${name}.${format.toLowerCase()}`;
+        a.click();
+        toast.success(`Image saved as ${format}`);
+      }
     } catch (error) {
       toast.error("Something went wrong!");
     }

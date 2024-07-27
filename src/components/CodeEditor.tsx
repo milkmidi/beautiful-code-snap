@@ -5,7 +5,6 @@ import flourite from "flourite";
 import hljs from "highlight.js";
 import { useEffect } from "react";
 import Editor from "react-simple-code-editor";
-
 export default function CodeEditor() {
   const store = useStore();
 
@@ -64,8 +63,10 @@ export default function CodeEditor() {
           value={store.code}
           onValueChange={(code) => useStore.setState({ code })}
           highlight={(code) =>
-            hljs.highlight(code, { language: store.language || "plaintext" })
-              .value
+            {
+              return hljs.highlight(code, { language: store.language || "plaintext" })
+                .value;
+            }
           }
           style={{
             fontFamily: fonts[store.fontStyle].name,
